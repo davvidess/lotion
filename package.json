@@ -1,6 +1,6 @@
 {
-  "name": "lotion",
-  "version": "0.4.26",
+  "name": "@davvidess/lotion",
+  "version": "0.4.27",
   "description": "smooth, easy blockchain apps. powered by tendermint consensus.",
   "main": "dist/index.js",
   "scripts": {
@@ -22,7 +22,7 @@
     "lotion-state-machine": "^0.2.3",
     "merk": "^1.3.9",
     "tendermint": "^4.0.2",
-    "tendermint-node": "^5.1.1",
+    "tendermint-node": "https://github.com/davvidess/tendermint-node/tarball/8edaed7df66790eba1a1b98acf4c30250a14180b",
     "varstruct": "^6.1.2"
   },
   "devDependencies": {
@@ -32,7 +32,6 @@
     "typescript": "^3.3.1"
   },
   "directories": {
-    "example": "example",
     "test": "test"
   },
   "repository": {
