@@ -1,6 +1,6 @@
 {
   "name": "@davvidess/lotion",
-  "version": "0.4.27",
+  "version": "0.4.28",
   "description": "smooth, easy blockchain apps. powered by tendermint consensus.",
   "main": "dist/index.js",
   "scripts": {

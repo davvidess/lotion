@@ -25,6 +25,7 @@ interface ApplicationConfig extends BaseApplicationConfig {
   genesisPath?: string
   peers?: Array<string>
   discovery?: boolean
+  homePath?: string
 }
 
 interface PortMap {
@@ -88,9 +89,7 @@ class LotionApp implements Application {
   }
 
   private setGCI() {
-    this.GCI = createHash('sha256')
-      .update(this.genesis)
-      .digest('hex')
+    this.GCI = createHash('sha256').update(this.genesis).digest('hex')
   }
 
   private getAppInfo(): AppInfo {
@@ -118,23 +117,27 @@ class LotionApp implements Application {
      *
      * otherwise a random id is generated.
      */
-    if (this.config.genesisPath && this.config.keyPath) {
-      this.home = join(
-        this.lotionHome,
-        createHash('sha256')
-          .update(fs.readFileSync(this.config.genesisPath))
-          .update(fs.readFileSync(this.config.keyPath))
-          .digest('hex')
-      )
-    } else if (this.config.genesisPath && !this.config.keyPath) {
-      this.home = join(
-        this.lotionHome,
-        createHash('sha256')
-          .update(fs.readFileSync(this.config.genesisPath))
-          .digest('hex')
-      )
+    if (this.config.homePath) {
+      this.home = join(this.lotionHome, this.config.homePath)
     } else {
-      this.home = join(this.lotionHome, randomBytes(16).toString('hex'))
+      if (this.config.genesisPath && this.config.keyPath) {
+        this.home = join(
+          this.lotionHome,
+          createHash('sha256')
+            .update(fs.readFileSync(this.config.genesisPath))
+            .update(fs.readFileSync(this.config.keyPath))
+            .digest('hex')
+        )
+      } else if (this.config.genesisPath && !this.config.keyPath) {
+        this.home = join(
+          this.lotionHome,
+          createHash('sha256')
+            .update(fs.readFileSync(this.config.genesisPath))
+            .digest('hex')
+        )
+      } else {
+        this.home = join(this.lotionHome, randomBytes(16).toString('hex'))
+      }
     }
   }
 
@@ -182,7 +185,7 @@ class LotionApp implements Application {
   }
 }
 
-let Lotion: any = function(config) {
+let Lotion: any = function (config) {
   return new LotionApp(config)
 }
 
