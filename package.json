@@ -1,10 +1,10 @@
 {
   "name": "@davvidess/lotion",
-  "version": "0.4.29",
+  "version": "0.4.30",
   "description": "smooth, easy blockchain apps. powered by tendermint consensus.",
   "main": "dist/index.js",
   "scripts": {
-    "publish": "tsc",
+    "prepublishOnly": "tsc",
     "test": "tsc && depcheck --ignores=@types/node && nyc -r html -r text ava"
   },
   "keywords": [],

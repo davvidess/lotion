@@ -60,8 +60,11 @@ export default function createABCIServer(
       try {
         let tx = decodeTx(request.tx)
         try {
-          stateMachine.transition({ type: 'transaction', data: tx })
-          return {}
+          const result = stateMachine.transition({
+            type: 'transaction',
+            data: tx
+          })
+          return { info: result }
         } catch (e) {
           return { code: 1, log: e.toString() }
         }
@@ -134,7 +137,9 @@ export default function createABCIServer(
         })
       )
 
-      return { data: rootHash ? Buffer.from(rootHash, 'hex') : Buffer.alloc(0) }
+      return {
+        data: rootHash ? Buffer.from(rootHash, 'hex') : Buffer.alloc(0)
+      }
     },
     async initChain(request) {
       /**
